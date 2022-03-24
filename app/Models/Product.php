@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Product extends Model
+{
+    use HasFactory;
+
+    public function getPriceAfterDiscountAttribute()
+    {
+        return $this->price - $this->discount_amount;
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, "category_id", "id");
+    }
+
+    public function images()
+    {
+        return $this->hasMany(Image::class, "product_id", "id");
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, "product_id", "id");
+    }
+}
